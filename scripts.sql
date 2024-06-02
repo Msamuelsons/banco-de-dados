@@ -1018,5 +1018,260 @@ insert into fornecedor (idFornecedor, nome) values (3, 'BB. Máquinas');
 
 select * from fornecedor;
 
+insert into transportadora (idTransportadora, idmunicipio, nome, logradouro, numero) values (
+	1,
+	9,
+	'BS. Transportes',
+	'Rua das Limas',
+	'01'
+);
+
+
+select * from transportadora;
+
+
+insert into produto (idProduto, idFornecedor, nome, valor) values (
+	1,
+	1,
+	'Microcomputador',
+	800
+);
+insert into produto (idProduto, idFornecedor, nome, valor) values (
+	2,
+	1,
+	'Monitor',
+	500
+);
+insert into produto (idProduto, idFornecedor, nome, valor) values (
+	3,
+	2,
+	'Placa mãe',
+	200
+);
+insert into produto (idProduto, idFornecedor, nome, valor) values (
+	4,
+	2,
+	'HD',
+	150
+);
+insert into produto (idProduto, idFornecedor, nome, valor) values (
+	5,
+	2,
+	'Placa de vídeo',
+	200
+);
+
+insert into produto (idProduto, idFornecedor, nome, valor) values (
+	6,
+	3,
+	'Memória RAM',
+	150
+);
+insert into produto (idProduto, idFornecedor, nome, valor) values (
+	7,
+	1,
+	'Gabinete',
+	35
+);
+select * from produto;
+
+create table pedido (
+	idpedido integer not null,
+	idcliente integer not null,
+	idTransportadora integer,
+	idVendedor integer not null,
+	data_pedido date not null,
+	valor float not null,
+
+
+	constraint pk_pdd_idpedido primary key (idpedido),
+	constraint fk_pdd_idcliente foreign key (idcliente) references cliente(idcliente),
+	constraint fk_pdd_idTransportadora foreign key (idTransportadora) references transportadora (idTransportadora),
+	constraint fk_pdd_idVendedor foreign key (idVendedor) references vendedor(idVendedor)
+);
+
+select * from cliente;
+select * from transportadora;
+
+update cliente set nome = 'Manoel' where idcliente = 1; 
+
+insert into pedido (idpedido, data_pedido, valor, idcliente, idtransportadora, idvendedor) values (
+	1, '2008-04-01', 1300, 1, 1, 1
+);
+
+
+insert into pedido (idpedido, data_pedido, valor, idcliente, idtransportadora, idvendedor) values (
+	2, '2008-04-01', 500, 1, 1, 1
+);
+
+
+insert into pedido (idpedido, data_pedido, valor, idcliente, idtransportadora, idvendedor) values (
+	3, '2008-04-01', 300, 11, 2, 5
+);
+
+insert into pedido (idpedido, data_pedido, valor, idcliente, idtransportadora, idvendedor) values (
+	4, '2008-04-05', 1000, 8, 1, 7
+);
+
+insert into pedido (idpedido, data_pedido, valor, idcliente, idtransportadora, idvendedor) values (
+	5, '2008-04-06', 200, 9, 2, 6
+);
+
+insert into pedido (idpedido, data_pedido, valor, idcliente, idtransportadora, idvendedor) values (
+	6, '2008-04-06', 1985, 10, 1, 6
+);
+insert into pedido (idpedido, data_pedido, valor, idcliente, idtransportadora, idvendedor) values (
+	7, '2008-04-06', 800, 3, 1, 7
+);
+
+insert into pedido (idpedido, data_pedido, valor, idcliente, idtransportadora, idvendedor) values (
+	8, '2008-04-06', 175, 3, null, 7
+);
+
+insert into pedido (idpedido, data_pedido, valor, idcliente, idtransportadora, idvendedor) values (
+	9, '2008-04-07', 1300, 12, null, 8
+);
+
+insert into pedido (idpedido, data_pedido, valor, idcliente, idtransportadora, idvendedor) values (
+	10, '2008-04-10', 200, 6, 1, 8
+);
+insert into pedido (idpedido, data_pedido, valor, idcliente, idtransportadora, idvendedor) values (
+	11, '2008-04-15', 300, 15, 2, 1
+);
+
+insert into pedido (idpedido, data_pedido, valor, idcliente, idtransportadora, idvendedor) values (
+	12, '2008-04-20', 500, 15, 2, 5
+);
+insert into pedido (idpedido, data_pedido, valor, idcliente, idtransportadora, idvendedor) values (
+	13, '2008-04-20', 350, 9, 1, 7
+);
+insert into pedido (idpedido, data_pedido, valor, idcliente, idtransportadora, idvendedor) values (
+	14, '2008-04-23', 300, 2, 1, 5
+);
+
+insert into pedido (idpedido, data_pedido, valor, idcliente, idtransportadora, idvendedor) values (
+	15, '2008-04-25', 200, 11, null, 5
+);
+
+select * from cliente;
+select * from transportadora;
+
+select * from vendedor;
+
+select * from pedido;
+
+create table pedido_produto (
+	idpedido integer not null,
+	idproduto integer not null,
+	quantidade integer not null,
+	valor_unitario float not null,
+
+	constraint pk_pdp_idpedidoproduto primary key (idpedido, idproduto),
+	constraint fk_pdp_idpedido foreign key (idpedido) references pedido (idpedido),
+	constraint fk_pdp_idproduto foreign key (idproduto) references produto (idProduto)
+);
+
+
+insert into pedido_produto (idpedido, idproduto, quantidade, valor_unitario) values (1, 1, 1, 800);
+insert into pedido_produto (idpedido, idproduto, quantidade, valor_unitario) values (1, 2, 1, 500);
+insert into pedido_produto (idpedido, idproduto, quantidade, valor_unitario) values (2, 2, 1, 500);
+insert into pedido_produto (idpedido, idproduto, quantidade, valor_unitario) values (3, 4, 2, 150);
+insert into pedido_produto (idpedido, idproduto, quantidade, valor_unitario) values (4, 1, 1, 800);
+insert into pedido_produto (idpedido, idproduto, quantidade, valor_unitario) values (4, 3, 1, 200);
+insert into pedido_produto (idpedido, idproduto, quantidade, valor_unitario) values (5, 3, 1, 200);
+insert into pedido_produto (idpedido, idproduto, quantidade, valor_unitario) values (6, 1, 2, 800);
+insert into pedido_produto (idpedido, idproduto, quantidade, valor_unitario) values (6, 7, 1, 35);
+insert into pedido_produto (idpedido, idproduto, quantidade, valor_unitario) values (6, 5, 1, 200);
+insert into pedido_produto (idpedido, idproduto, quantidade, valor_unitario) values (6, 4, 1, 150);
+insert into pedido_produto (idpedido, idproduto, quantidade, valor_unitario) values (7, 1, 1, 800);
+insert into pedido_produto (idpedido, idproduto, quantidade, valor_unitario) values (8, 7, 5, 35);
+insert into pedido_produto (idpedido, idproduto, quantidade, valor_unitario) values (9, 1, 1, 800);
+insert into pedido_produto (idpedido, idproduto, quantidade, valor_unitario) values (9, 2, 1, 500);
+insert into pedido_produto (idpedido, idproduto, quantidade, valor_unitario) values (10, 5, 1, 200);
+insert into pedido_produto (idpedido, idproduto, quantidade, valor_unitario) values (11, 5, 1, 200);
+insert into pedido_produto (idpedido, idproduto, quantidade, valor_unitario) values (11, 6, 1, 100);
+insert into pedido_produto (idpedido, idproduto, quantidade, valor_unitario) values (12, 2, 1, 500);
+insert into pedido_produto (idpedido, idproduto, quantidade, valor_unitario) values (13, 3, 1, 200);
+insert into pedido_produto (idpedido, idproduto, quantidade, valor_unitario) values (13, 4, 1, 150);
+insert into pedido_produto (idpedido, idproduto, quantidade, valor_unitario) values (14, 6, 3, 100);
+insert into pedido_produto (idpedido, idproduto, quantidade, valor_unitario) values (15, 3, 1, 200);
+
+select * from pedido_produto;
+
+
+
+-- EXERCÍCIOS
+
+-- 1) Somente o nome de todos os vendedores em ordem alfabética.
+select nome from vendedor order by nome;
+
+-- 2) Os produtos que o preço seja maior que R$200,00, em ordem crescente pelo preço.
+select valor from produto where valor > 200 order by valor;
+
+-- 3) O nome do produto, o preço e o preço reajustado em 10%, ordenado pelo nome do produto.
+select nome, valor, (valor * 10) / 100 as "Valor reajustado" from produto;
+
+-- 4) Os municípios do Rio Grande do Sul.
+select nome from municipio where iduf = 5;
+
+-- 5) Os pedidos feitos entre 10/04/2008 e 25/04/2008 ordenado pelo valor.
+select * from pedido where data_pedido between '2008-04-10' and '2008-04-25' order by valor;
+
+-- 6) Os pedidos que o valor esteja entre R$1.000,00 e R$1.500,00.
+
+select * from pedido where valor > 100 and valor <= 500;
+select * from pedido where valor between 100 and 500;
+
+-- 7) Os pedidos que o valor não esteja entre R$100,00 e R$500,00.
+select * from pedido where not valor between 100 and 500;
+
+-- 8) Os pedidos do vendedor André ordenado pelo valor em ordem decrescente.
+select valor from pedido where idcliente = 1 order by valor desc;
+
+-- 9) Os pedidos do cliente Manoel ordenado pelo valor em ordem crescente.
+select * from pedido where idcliente = 1 order by valor;
+
+-- 10) Os pedidos da cliente Jéssica que foram feitos pelo vendedor André.
+select * from pedido where idcliente = 15 and idvendedor=1;
+
+-- 11) Os pedidos que foram transportados pela transportadora União Transportes.
+select * from pedido where idtransportadora = 2;
+
+-- 12) Os pedidos feitos pela vendedora Maria ou pela vendedora Aline.
+select * from pedido where idvendedor=5 or idvendedor=7;
+
+-- 13) Os clientes que moram em União da Vitória ou Porto União
+select * from cliente where idmunicipio = 9 or idmunicipio=1;
+
+-- 14) Os clientes que não moram em União da Vitória e nem em Porto União.
+-- Símbolo de diferença <>
+select * from cliente where idmunicipio <> 9 and idmunicipio=1;
+
+-- 15) Os clientes que não informaram o logradouro.
+select * from cliente where logradouro is null;
+
+-- 16) Os clientes que moram em avenidas.
+select * from cliente where logradouro like 'Av%';
+
+-- 17) Os vendedores que o nome começa com a letra S.
+select * from vendedor where nome like 'S%' or nome like 's%';
+
+-- 18) Os vendedores que o nome termina com a letra A.
+select * from vendedor where nome like '%a';
+
+-- 19) Os vendedores que o nome não começa com a letra A.
+select * from vendedor where nome not like 'A%';
+
+-- 20) Os municípios que começam com a letra P e são de Santa Catarina.
+select * from municipio where nome like 'P%' and iduf=1;
+
+-- 21) As transportadoras que informaram o endereço.
+select * from transportadora where logradouro is not null;
+
+-- 22) Os itens do pedido 01
+select * from pedido_produto where idpedido=1;
+
+-- 23) Os itens do pedido 06 ou do pedido 10.
+select * from pedido_produto where idpedido= 6 or idpedido=10;
 
 
