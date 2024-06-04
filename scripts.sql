@@ -1274,4 +1274,51 @@ select * from pedido_produto where idpedido=1;
 -- 23) Os itens do pedido 06 ou do pedido 10.
 select * from pedido_produto where idpedido= 6 or idpedido=10;
 
+-- Funções agregadoras
+select avg(valor) from pedido; -- média
+
+select count(idmunicipio) from municipio; -- contagem
+select count(idmunicipio) from municipio; -- contagem
+
+select count(idtransportadora) from transportadora;
+
+select count(idmunicipio) from municipio where iduf=2;
+
+-- retorna máximo valor
+select max(valor) from pedido;
+
+
+-- min
+select max(valor) as "Mais caro", min(valor) as "Mais Barato" from pedido;
+
+-- somatória
+select sum(valor) from pedido;
+
+-- Agrupamento
+select idcliente, sum(valor) from pedido group by idcliente;
+
+select idcliente, sum(valor) from pedido group by idcliente having sum(valor) > 500;
+
+-- Exercícios
+
+--1) A média dos valores de vendas dos vendedores que venderam mais que R$ 200,00.
+
+select * from pedido;
+select idvendedor, avg(valor) from pedido group by idvendedor having avg(valor) > 200;
+
+-- 2) Os vendedores que venderam mais que R$ 1500,00.
+
+select idvendedor, sum(valor) from pedido group by idvendedor having sum(valor) > 1500;
+
+-- 3) O somatório das vendas de cada vendedor.
+select idvendedor, sum(valor) from pedido group by idvendedor;
+
+-- 4) A quantidade de municípios.
+select count(*) from municipio;
+
+-- 5) A quantidade de municípios que são do Paraná ou de Santa Catarina.
+select count(nome) from municipio where iduf=1 or iduf=2;
+
+-- 6) A quantidade de municípios por estado.
+
 
